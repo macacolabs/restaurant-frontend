@@ -1,137 +1,14 @@
-"use client";
+import ProductDetailClient from "./ProductDetailClient";
 
-import ProductDetailCSS from "../../../pages_old/products/ProductDetail.module.css";
-import { useRouter, useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { decodeJwt } from "../../../utils/tokenUtils";
-import { callProductDetailAPI } from "../../../apis/ProductAPICalls";
-import LoginModal from "../../../components/common/LoginModal";
+// 정적 경로 생성을 위한 함수
+export async function generateStaticParams() {
+  // 정적 내보내기를 위해 빈 배열 반환
+  // 실제 운영 시에는 모든 productCode를 미리 가져와서 반환해야 함
+  return [];
+}
 
-function ProductDetail() {
-  const router = useRouter();
-  const params = useParams();
-  const [product, setProduct] = useState({});
-  const [amount, setAmount] = useState(1);
-  const [loginModal, setLoginModal] = useState(false);
-
-  useEffect(() => {
-    const fetchProductDetail = async () => {
-      try {
-        const result = await callProductDetailAPI({
-          // 상품 상세 정보 조회
-          productCode: params.productCode,
-        });
-        setProduct(result);
-      } catch (error) {
-        console.error("Failed to fetch product detail:", error);
-      }
-    };
-
-    if (params.productCode) {
-      fetchProductDetail();
-    }
-  }, [params.productCode]);
-
-  const onClickReviewHandler = () => {
-    router.push(`/review?productCode=${params.productCode}`);
-  };
-
-  const onChangeAmountHandler = (e) => {
-    setAmount(e.target.value);
-  };
-
-  const onClickPurchaseHandler = () => {
-    // 로그인 상태인지 확인
-    const token = decodeJwt(
-      typeof window !== "undefined"
-        ? window.localStorage.getItem("accessToken")
-        : null
-    );
-    console.log("[onClickPurchaseHandler] token : ", token);
-
-    if (token === undefined || token === null) {
-      alert("로그인을 먼저해주세요");
-      setLoginModal(true);
-      return;
-    }
-
-    // 토큰이 만료되었을때 다시 로그인
-    if (token.exp * 1000 < Date.now()) {
-      setLoginModal(true);
-      return;
-    }
-
-    // 구매 가능 수량 확인
-    if (amount > product.productStock) {
-      alert("구매 가능 수량을 확인해주세요");
-      return;
-    }
-
-    router.push(`/purchase?amount=${amount}&productCode=${params.productCode}`);
-  };
-
-  return (
-    <div>
-      {loginModal ? <LoginModal setLoginModal={setLoginModal} /> : null}
-      <div className={ProductDetailCSS.DetailDiv}>
-        <div className={ProductDetailCSS.imgDiv}>
-          <img src={product.productImageUrl} alt="테스트" />
-          <button
-            className={ProductDetailCSS.reviewBtn}
-            onClick={onClickReviewHandler}
-          >
-            리뷰보기
-          </button>
-        </div>
-        <div className={ProductDetailCSS.descriptionDiv}>
-          <table className={ProductDetailCSS.descriptionTable}>
-            <tbody>
-              <tr>
-                <th>상품 코드</th>
-                <td>{product.productCode || ""}</td>
-              </tr>
-              <tr>
-                <th>상품명</th>
-                <td>{product.productName || ""}</td>
-              </tr>
-              <tr>
-                <th>상품 가격</th>
-                <td>{product.productPrice || ""}</td>
-              </tr>
-              <tr>
-                <th>상품 설명</th>
-                <td>{product.productDescription || ""}</td>
-              </tr>
-              <tr>
-                <th>구매 가능 수량</th>
-                <td>{product.productStock || ""}</td>
-              </tr>
-              <tr>
-                <th>구매 수량</th>
-                <td>
-                  <input
-                    type="number"
-                    value={amount}
-                    onChange={onChangeAmountHandler}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td colSpan={2}>
-                  <button
-                    className={ProductDetailCSS.productBuyBtn}
-                    onClick={onClickPurchaseHandler}
-                  >
-                    구매하기
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
+function ProductDetail({ params }) {
+  return <ProductDetailClient productCode={params.productCode} />;
 }
 
 export default ProductDetail;
