@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && echo 'Standalone build completed. Check .next/standalone directory'"
+    "export": "next build"
   },
   "dependencies": {
     "react": "^18.2.0",

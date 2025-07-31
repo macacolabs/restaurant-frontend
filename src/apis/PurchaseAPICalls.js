@@ -1,5 +1,9 @@
+// API 서버 기본 URL
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+
 export const callPurchaseListAPI = async ({ memberId }) => {
-  const requestURL = `/api/api/v1/orders/${memberId}`;
+  const requestURL = `${API_BASE_URL}/api/v1/orders/${memberId}`;
 
   console.log(
     "[PurchaseAPICalls] callPurchaseListAPI called with memberId:",
@@ -47,7 +51,7 @@ export const callPurchaseListAPI = async ({ memberId }) => {
 export const callPurchaseAPI = async ({ form }) => {
   console.log("[PurchaseAPICalls] callPurchaseAPI Call");
 
-  const requestURL = `/api/api/v1/purchase`;
+  const requestURL = `${API_BASE_URL}/api/v1/purchase`;
 
   try {
     const response = await fetch(requestURL, {

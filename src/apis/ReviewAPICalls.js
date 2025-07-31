@@ -1,5 +1,9 @@
+// API 서버 기본 URL
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+
 export const callReviewDetailAPI = async ({ reviewCode }) => {
-  const requestURL = `/api/api/v1/reviews/detail/${reviewCode}`;
+  const requestURL = `${API_BASE_URL}/api/v1/reviews/detail/${reviewCode}`;
 
   try {
     const response = await fetch(requestURL, {
@@ -22,7 +26,7 @@ export const callReviewDetailAPI = async ({ reviewCode }) => {
 export const callReviewWriteAPI = async ({ form }) => {
   console.log("[ReviewAPICalls] callReviewWriteAPI Call");
 
-  const requestURL = `/api/api/v1/reviews`;
+  const requestURL = `${API_BASE_URL}/api/v1/reviews`;
 
   try {
     const response = await fetch(requestURL, {
@@ -56,7 +60,7 @@ export const callReviewWriteAPI = async ({ form }) => {
 export const callReviewUpdateAPI = async ({ form }) => {
   console.log("[ReviewAPICalls] callReviewUpdateAPI Call");
 
-  const requestURL = `/api/api/v1/reviews`;
+  const requestURL = `${API_BASE_URL}/api/v1/reviews`;
 
   try {
     const response = await fetch(requestURL, {
@@ -89,7 +93,7 @@ export const callReviewUpdateAPI = async ({ form }) => {
 export const callReviewsAPI = async ({ productCode, currentPage }) => {
   console.log("[ReviewAPICalls] callReviewsAPI Call");
 
-  const requestURL = `/api/api/v1/reviews/product/${productCode}?offset=${currentPage}`;
+  const requestURL = `${API_BASE_URL}/api/v1/reviews/product/${productCode}?offset=${currentPage}`;
 
   try {
     const response = await fetch(requestURL, {

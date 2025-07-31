@@ -1,7 +1,11 @@
+// API 서버 기본 URL
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+
 export const callSearchProductAPI = async ({ search }) => {
   console.log("[ProduceAPICalls] callSearchProductAPI Call");
 
-  const requestURL = `/api/api/v1/products/search?s=${search}`;
+  const requestURL = `${API_BASE_URL}/api/v1/products/search?s=${search}`;
 
   try {
     const response = await fetch(requestURL, {
@@ -24,7 +28,7 @@ export const callSearchProductAPI = async ({ search }) => {
 export const callProductRegistAPI = async ({ form }) => {
   console.log("[ProduceAPICalls] callProductRegistAPI Call");
 
-  const requestURL = `/api/api/v1/products`;
+  const requestURL = `${API_BASE_URL}/api/v1/products`;
 
   try {
     const response = await fetch(requestURL, {
@@ -52,7 +56,7 @@ export const callProductRegistAPI = async ({ form }) => {
 export const callProductUpdateAPI = async ({ form }) => {
   console.log("[ProduceAPICalls] callProductUpdateAPI Call");
 
-  const requestURL = `/api/api/v1/products`;
+  const requestURL = `${API_BASE_URL}/api/v1/products`;
 
   try {
     const response = await fetch(requestURL, {
@@ -78,7 +82,7 @@ export const callProductUpdateAPI = async ({ form }) => {
 };
 
 export const callProductDetailForAdminAPI = async ({ productCode }) => {
-  const requestURL = `/api/api/v1/products-management/${productCode}`;
+  const requestURL = `${API_BASE_URL}/api/v1/products-management/${productCode}`;
 
   try {
     const response = await fetch(requestURL, {
@@ -113,7 +117,7 @@ export const callProductDetailForAdminAPI = async ({ productCode }) => {
 };
 
 export const callProductDetailAPI = async ({ productCode }) => {
-  const requestURL = `/api/api/v1/products/${productCode}`;
+  const requestURL = `${API_BASE_URL}/api/v1/products/${productCode}`;
 
   try {
     const response = await fetch(requestURL, {
@@ -143,9 +147,9 @@ export const callProductListForAdminAPI = async ({ currentPage }) => {
   let requestURL;
 
   if (currentPage !== undefined || currentPage !== null) {
-    requestURL = `/api/api/v1/products-management?offset=${currentPage}`;
+    requestURL = `${API_BASE_URL}/api/v1/products-management?offset=${currentPage}`;
   } else {
-    requestURL = `/api/api/v1/products-management`;
+    requestURL = `${API_BASE_URL}/api/v1/products-management`;
   }
 
   console.log("[ProduceAPICalls] requestURL : ", requestURL);
@@ -188,7 +192,7 @@ export const callProductListAPI = async ({ currentPage }) => {
   let requestURL;
 
   if (currentPage !== undefined || currentPage !== null) {
-    requestURL = `/api/api/v1/products?offset=${currentPage}`;
+    requestURL = `${API_BASE_URL}/api/v1/products?offset=${currentPage}`;
   } else {
     requestURL = `/api/api/v1/products`;
   }
@@ -219,7 +223,7 @@ export const callProductListAPI = async ({ currentPage }) => {
 };
 
 export const callProductListAboutMealAPI = async () => {
-  const requestURL = `/api/api/v1/products/meals`;
+  const requestURL = `${API_BASE_URL}/api/v1/products/meals`;
 
   try {
     const response = await fetch(requestURL, {
@@ -251,7 +255,7 @@ export const callProductListAboutMealAPI = async () => {
 };
 
 export const callProductListAboutDessertAPI = async () => {
-  const requestURL = `/api/api/v1/products/dessert`;
+  const requestURL = `${API_BASE_URL}/api/v1/products/dessert`;
 
   try {
     const response = await fetch(requestURL, {
@@ -283,7 +287,7 @@ export const callProductListAboutDessertAPI = async () => {
 };
 
 export const callProductListAboutBeverageAPI = async () => {
-  const requestURL = `/api/api/v1/products/beverage`;
+  const requestURL = `${API_BASE_URL}/api/v1/products/beverage`;
 
   try {
     const response = await fetch(requestURL, {

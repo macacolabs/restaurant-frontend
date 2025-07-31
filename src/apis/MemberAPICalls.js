@@ -1,9 +1,9 @@
-// API_BASE_URL은 참고용으로만 유지, 주소는 next.config.mjs에서 변경처리함
-// const API_BASE_URL =
-//   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
+// API 서버 기본 URL
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
 export const callGetMemberAPI = async ({ memberId }) => {
-  const requestURL = `/api/api/v1/members/${memberId}`;
+  const requestURL = `${API_BASE_URL}/api/v1/members/${memberId}`;
 
   try {
     const response = await fetch(requestURL, {
@@ -29,7 +29,7 @@ export const callGetMemberAPI = async ({ memberId }) => {
 };
 
 export const callLoginAPI = async ({ form }) => {
-  const requestURL = `/api/auth/login`;
+  const requestURL = `${API_BASE_URL}/auth/login`;
 
   // form 객체 검증
   if (!form || !form.memberId || !form.memberPassword) {
@@ -109,7 +109,7 @@ export const callLogoutAPI = () => {
 };
 
 export const callRegisterAPI = async ({ form }) => {
-  const requestURL = `/api/auth/signup`;
+  const requestURL = `${API_BASE_URL}/auth/signup`;
 
   // form 객체 검증
   if (
