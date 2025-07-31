@@ -1,0 +1,115 @@
+.modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 99999 !important;
+  backdrop-filter: blur(8px);
+}
+
+.modalContainer {
+  position: relative !important;
+  width: 400px !important;
+  height: 500px !important;
+  padding: 10px !important;
+  text-align: center !important;
+  background-color: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4) !important;
+  z-index: 100000 !important;
+  border: 1px solid #e5e5e5 !important;
+}
+
+.productReviewModalDiv {
+  width: 400px !important;
+  height: 500px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  background-color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+}
+
+.productReviewModalDiv h1 {
+  margin: 0 0 20px 0 !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: #000 !important;
+}
+
+.productReviewModalDiv input {
+  margin-top: 5px !important;
+  margin-bottom: 15px !important;
+  height: 40px !important;
+  width: 90% !important;
+  border: 2px solid #e5e5e5 !important;
+  border-radius: 8px !important;
+  padding: 0 15px !important;
+  font-size: 16px !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+.productReviewModalDiv input:focus {
+  outline: none !important;
+  border-color: #000 !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.productReviewModalDiv textarea {
+  width: 90% !important;
+  height: 200px !important;
+  resize: none !important;
+  border: 2px solid #e5e5e5 !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  font-size: 16px !important;
+  font-family: inherit !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  margin-bottom: 20px !important;
+}
+
+.productReviewModalDiv textarea:focus {
+  outline: none !important;
+  border-color: #000 !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.productReviewModalDiv button {
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+  height: 40px !important;
+  width: 250px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background-color: #000 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.productReviewModalDiv button:hover {
+  background-color: #333 !important;
+  transform: translateY(-1px) !important;
+}
+
+.productReviewModalDiv button:last-child {
+  background-color: #f2f2f2 !important;
+  color: #000 !important;
+  font-size: 14px !important;
+  height: 30px !important;
+  width: 100px !important;
+}

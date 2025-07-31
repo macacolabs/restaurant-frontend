@@ -1,0 +1,15 @@
+.MyPageLayoutDiv {
+  display: flex;
+  min-height: calc(100vh - 200px);
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.MyPageContentDiv {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
