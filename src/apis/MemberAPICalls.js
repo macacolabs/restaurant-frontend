@@ -49,7 +49,6 @@ export const callLoginAPI = async ({ form }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "*/*",
       },
       body: JSON.stringify(requestBody),
     });

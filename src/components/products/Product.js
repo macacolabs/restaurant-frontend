@@ -2,6 +2,7 @@
 
 import ProductCSS from "./Product.module.css";
 import { useRouter } from "next/navigation";
+import config from "../../config/config";
 
 function Product({
   product: { productCode, productImageUrl, productName, productPrice },
@@ -9,7 +10,9 @@ function Product({
   const router = useRouter();
 
   const onClickProductHandler = (productCode) => {
-    router.push(`/product/${productCode}`);
+    // Elastic Beanstalk 도메인으로 페이지 이동
+    const targetUrl = `${config.BASE_URL}/product/${productCode}`;
+    window.location.href = targetUrl;
   };
 
   return (
