@@ -1,3 +1,5 @@
+import { getToken } from "../utils/cookieUtils";
+
 // API 서버 기본 URL
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
@@ -35,11 +37,7 @@ export const callProductRegistAPI = async ({ form }) => {
       method: "POST",
       headers: {
         Accept: "*/*",
-        Authorization:
-          "Bearer " +
-          (typeof window !== "undefined"
-            ? window.localStorage.getItem("accessToken")
-            : ""),
+        Authorization: "Bearer " + (getToken() || ""),
       },
       body: form,
     });
@@ -63,11 +61,7 @@ export const callProductUpdateAPI = async ({ form }) => {
       method: "PUT",
       headers: {
         Accept: "*/*",
-        Authorization:
-          "Bearer " +
-          (typeof window !== "undefined"
-            ? window.localStorage.getItem("accessToken")
-            : ""),
+        Authorization: "Bearer " + (getToken() || ""),
       },
       body: form,
     });
@@ -90,11 +84,7 @@ export const callProductDetailForAdminAPI = async ({ productCode }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-        Authorization:
-          "Bearer " +
-          (typeof window !== "undefined"
-            ? window.localStorage.getItem("accessToken")
-            : ""),
+        Authorization: "Bearer " + (getToken() || ""),
       },
     });
 
@@ -160,11 +150,7 @@ export const callProductListForAdminAPI = async ({ currentPage }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-        Authorization:
-          "Bearer " +
-          (typeof window !== "undefined"
-            ? window.localStorage.getItem("accessToken")
-            : ""),
+        Authorization: "Bearer " + (getToken() || ""),
       },
     });
 

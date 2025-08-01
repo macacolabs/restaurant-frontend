@@ -4,6 +4,7 @@ import ProductDetailCSS from "../../../pages_old/products/ProductDetail.module.c
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { decodeJwt } from "../../../utils/tokenUtils";
+import { getToken } from "../../../utils/cookieUtils";
 import { callProductDetailAPI } from "../../../apis/ProductAPICalls";
 import LoginModal from "../../../components/common/LoginModal";
 
@@ -40,12 +41,9 @@ function ProductDetailClient({ productCode }) {
   };
 
   const onClickPurchaseHandler = () => {
-    // 로그인 상태인지 확인
-    const token = decodeJwt(
-      typeof window !== "undefined"
-        ? window.localStorage.getItem("accessToken")
-        : null
-    );
+    // 로그인 상태인지 확인 (Cookie에서 토큰 가져오기)
+    const tokenString = getToken();
+    const token = decodeJwt(tokenString);
     console.log("[onClickPurchaseHandler] token : ", token);
 
     if (token === undefined || token === null) {

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import HeaderCSS from "./Header.module.css";
 import { useState, useEffect } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
+import { getToken } from "../../utils/cookieUtils";
 import { callLogoutAPI } from "../../apis/MemberAPICalls";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
@@ -18,10 +19,7 @@ function Header() {
 
   // 로그인 상태 확인
   const checkLoginStatus = () => {
-    const token =
-      typeof window !== "undefined"
-        ? window.localStorage.getItem("accessToken")
-        : null;
+    const token = getToken(); // Cookie에서 토큰 확인
     console.log("[Header] checkLoginStatus - token:", token);
     setIsLogin(!!token);
   };
@@ -47,12 +45,9 @@ function Header() {
   };
 
   const onClickMypageHandler = () => {
-    // 토큰이 만료되었을때 다시 로그인
-    const token = decodeJwt(
-      typeof window !== "undefined"
-        ? window.localStorage.getItem("accessToken")
-        : null
-    );
+    // 토큰이 만료되었을때 다시 로그인 (Cookie에서 토큰 확인)
+    const tokenString = getToken();
+    const token = decodeJwt(tokenString);
     console.log("[Header] onClickMypageHandler token : ", token);
 
     if (token && token.exp * 1000 < Date.now()) {

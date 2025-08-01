@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+import { getToken, setToken, removeToken } from "../utils/cookieUtils";
 
 const AuthContext = createContext();
 
@@ -17,23 +18,21 @@ export const AuthProvider = ({ children }) => {
   const [userRole, setUserRole] = useState(null);
 
   const checkLoginStatus = () => {
-    if (typeof window !== "undefined") {
-      const token = window.localStorage.getItem("accessToken");
-      setIsLogin(!!token);
+    const token = getToken(); // Cookie에서 토큰 확인
+    setIsLogin(!!token);
 
-      if (token) {
-        try {
-          const decoded = JSON.parse(atob(token.split(".")[1]));
-          if (decoded.memberRole && decoded.memberRole[0]) {
-            setUserRole(decoded.memberRole[0].authority.authorityName);
-          }
-        } catch (error) {
-          console.error("Token decode error:", error);
-          setUserRole(null);
+    if (token) {
+      try {
+        const decoded = JSON.parse(atob(token.split(".")[1]));
+        if (decoded.memberRole && decoded.memberRole[0]) {
+          setUserRole(decoded.memberRole[0].authority.authorityName);
         }
-      } else {
+      } catch (error) {
+        console.error("Token decode error:", error);
         setUserRole(null);
       }
+    } else {
+      setUserRole(null);
     }
   };
 
@@ -43,9 +42,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem("accessToken");
-    }
+    removeToken(); // Cookie와 localStorage 모두에서 토큰 제거
     setIsLogin(false);
     setUserRole(null);
   };

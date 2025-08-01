@@ -1,3 +1,5 @@
+import { getToken } from "../utils/cookieUtils";
+
 // API 서버 기본 URL
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
@@ -34,11 +36,7 @@ export const callReviewWriteAPI = async ({ form }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-        Authorization:
-          "Bearer " +
-          (typeof window !== "undefined"
-            ? window.localStorage.getItem("accessToken")
-            : ""),
+        Authorization: "Bearer " + (getToken() || ""),
       },
       body: JSON.stringify({
         productCode: form.productCode,
@@ -68,11 +66,7 @@ export const callReviewUpdateAPI = async ({ form }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-        Authorization:
-          "Bearer " +
-          (typeof window !== "undefined"
-            ? window.localStorage.getItem("accessToken")
-            : ""),
+        Authorization: "Bearer " + (getToken() || ""),
       },
       body: JSON.stringify({
         reviewCode: form.reviewCode,

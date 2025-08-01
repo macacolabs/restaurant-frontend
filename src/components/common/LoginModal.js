@@ -2,7 +2,7 @@
 
 import LoginModalCSS from "./LoginModal.module.css";
 import { useState } from "react";
-
+import { removeToken } from "../../utils/cookieUtils";
 import { callLoginAPI } from "../../apis/MemberAPICalls";
 
 function LoginModal({ setLoginModal }) {
@@ -36,7 +36,8 @@ function LoginModal({ setLoginModal }) {
 
     setIsLoading(true);
     try {
-      window.localStorage.removeItem("accessToken");
+      // 기존 토큰 제거 (Cookie와 localStorage 모두)
+      removeToken();
 
       const result = await callLoginAPI({ form: form });
 

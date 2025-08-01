@@ -3,6 +3,7 @@
 import LoginCSS from "../../pages_old/member/Login.module.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getToken } from "../../utils/cookieUtils";
 import { callLoginAPI } from "../../apis/MemberAPICalls";
 
 function Login() {
@@ -26,10 +27,7 @@ function Login() {
   }, [loginResult, router]);
 
   // 로그인 상태일 시 로그인페이지로 접근 방지
-  const token =
-    typeof window !== "undefined"
-      ? window.localStorage.getItem("accessToken")
-      : null;
+  const token = getToken(); // Cookie에서 토큰 확인
   if (token) {
     console.log("[Login] Login is already authenticated by the server");
     router.push("/");

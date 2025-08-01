@@ -1,3 +1,5 @@
+import { getToken, setToken, removeToken } from "../utils/cookieUtils";
+
 // API 서버 기본 URL
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
@@ -11,11 +13,7 @@ export const callGetMemberAPI = async ({ memberId }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-        Authorization:
-          "Bearer " +
-          (typeof window !== "undefined"
-            ? window.localStorage.getItem("accessToken")
-            : ""),
+        Authorization: "Bearer " + (getToken() || ""),
       },
     });
 
@@ -78,13 +76,12 @@ export const callLoginAPI = async ({ form }) => {
       result.userInfo &&
       result.userInfo.accessToken
     ) {
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem("accessToken", result.userInfo.accessToken);
-        console.log(
-          "[MemberAPICalls] callLoginAPI TOKEN SAVED : ",
-          result.userInfo.accessToken
-        );
-      }
+      // Cookie와 localStorage 모두에 토큰 저장
+      setToken(result.userInfo.accessToken);
+      console.log(
+        "[MemberAPICalls] callLoginAPI TOKEN SAVED TO COOKIE : ",
+        result.userInfo.accessToken
+      );
     } else {
       console.warn(
         "[MemberAPICalls] callLoginAPI NO TOKEN IN RESPONSE : ",
@@ -100,9 +97,8 @@ export const callLoginAPI = async ({ form }) => {
 };
 
 export const callLogoutAPI = () => {
-  if (typeof window !== "undefined") {
-    window.localStorage.removeItem("accessToken");
-  }
+  // Cookie와 localStorage 모두에서 토큰 제거
+  removeToken();
   console.log("[MemberAPICalls] callLogoutAPI RESULT : SUCCESS");
   return { status: 200, message: "로그아웃 성공" };
 };
