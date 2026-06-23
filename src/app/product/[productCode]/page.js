@@ -26,8 +26,9 @@ export async function generateStaticParams() {
   return staticParams;
 }
 
-function ProductDetail({ params }) {
-  return <ProductDetailClient productCode={params.productCode} />;
+async function ProductDetail({ params }) {
+  const { productCode } = await params;
+  return <ProductDetailClient productCode={productCode} />;
 }
 
 export default ProductDetail;

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callPurchaseListAPI } from "../../apis/PurchaseAPICalls";
 import ProductReviewModal from "../products/ProductReviewModal";
 
 function Payment() {
+  const router = useRouter();
   const [purchaseList, setPurchaseList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,15 +24,22 @@ function Payment() {
             : null;
 
         if (!token) {
-          setError("로그인이 필요합니다.");
-          setLoading(false);
+          alert("로그인이 필요합니다.");
+          router.push("/login");
           return;
         }
 
         const decodedToken = decodeJwt(token);
         if (!decodedToken) {
-          setError("토큰이 유효하지 않습니다.");
-          setLoading(false);
+          alert("로그인이 필요합니다.");
+          router.push("/login");
+          return;
+        }
+
+        if (decodedToken.exp * 1000 < Date.now()) {
+          window.localStorage.removeItem("accessToken");
+          alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
+          router.push("/login");
           return;
         }
 
@@ -56,6 +65,12 @@ function Payment() {
         }
       } catch (error) {
         console.error("[Payment] Fetch error:", error);
+        if (error.message.includes("401")) {
+          window.localStorage.removeItem("accessToken");
+          alert("인증이 만료되었습니다. 다시 로그인해주세요.");
+          router.push("/login");
+          return;
+        }
         setError(`결제 내역을 불러오는데 실패했습니다: ${error.message}`);
       } finally {
         setLoading(false);

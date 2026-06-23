@@ -18,7 +18,7 @@ function Product({
       className={ProductCSS.productDiv}
       onClick={() => onClickProductHandler(productCode)}
     >
-      <img src={productImageUrl} alt="테스트" />
+      <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}${productImageUrl}`} alt="테스트" />
       <h5>{productName}</h5>
       <h5>{productPrice}</h5>
     </div>

@@ -5,7 +5,7 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
 export const callPurchaseListAPI = async ({ memberId }) => {
-  const requestURL = `${API_BASE_URL}/api/v1/orders/${memberId}`;
+  const requestURL = `${API_BASE_URL}/api/v1/purchase/${memberId}`;
 
   console.log(
     "[PurchaseAPICalls] callPurchaseListAPI called with memberId:",

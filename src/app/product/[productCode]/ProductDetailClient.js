@@ -72,7 +72,7 @@ function ProductDetailClient({ productCode }) {
       {loginModal ? <LoginModal setLoginModal={setLoginModal} /> : null}
       <div className={ProductDetailCSS.DetailDiv}>
         <div className={ProductDetailCSS.imgDiv}>
-          <img src={product.productImageUrl} alt="테스트" />
+          <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}${product.productImageUrl}`} alt="테스트" />
           <button
             className={ProductDetailCSS.reviewBtn}
             onClick={onClickReviewHandler}
